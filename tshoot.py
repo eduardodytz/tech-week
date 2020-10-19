@@ -37,10 +37,13 @@ def shClock(show_clock):
 
 def get_info():
     show_version = showCommand('show version')
+    versiontable = createTable('versiontable',field_names=["IOS Version"],add_row=[show_version['version']['version']])
+    print(versiontable)
+    
     show_clock = showCommand('show clock')
-    show_ip_interface_brief = show('show ip interface brief')
-    show_interfaces = show('show interfaces')
-    show_arp = show("show arp summary")
+    show_ip_interface_brief = showCommand('show ip interface brief')
+    show_interfaces = showCommand('show interfaces')
+    show_arp = showCommand("show arp summary")
 
 
 #Dictionary of device
