@@ -1,0 +1,80 @@
+---
+edge-firewall01:
+    hostname: 10.10.20.171
+    port: 22
+    platform: cisco_asa
+    groups:
+        - cisco
+    data:
+        role: edge
+        type: network_device
+
+edge-sw01:
+    hostname: 10.10.20.172
+    port: 22
+    platform: cisco_ios
+    groups:
+        - cisco
+    data:
+        role: edge
+        type: network_device
+
+core-rtr01:
+    hostname: 10.10.20.173
+    port: 22
+    platform: cisco_xr
+    groups:
+        - cisco
+    data:
+        role: core
+        type: network_device
+
+core-rtr02:
+    hostname: 10.10.20.174
+    port: 22
+    platform: cisco_xr
+    groups:
+        - cisco
+    data:
+        role: core
+        type: network_device
+
+dist-rtr01:
+    hostname: 10.10.20.175
+    port: 22
+    platform: cisco_xe
+    groups:
+        - cisco
+    data:
+        role: dist
+        type: network_device
+
+dist-rtr02:
+    hostname: 10.10.20.176
+    port: 22
+    platform: cisco_xe
+    groups:
+        - cisco
+    data:
+        role: dist
+        type: network_device
+
+dist-sw01:
+    hostname: 10.10.20.177
+    port: 22
+    platform: cisco_nxos
+    groups:
+        - cisco
+    data:
+        role: dist
+        type: network_device
+
+dist-sw02:
+    hostname: 10.10.20.178
+    port: 22
+    platform: cisco_nxos
+    groups:
+        - cisco
+    data:
+        role: dist
+        type: network_device

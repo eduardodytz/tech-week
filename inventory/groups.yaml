@@ -1,0 +1,6 @@
+---
+    cisco:
+        data:
+            domain: cisco.com
+        username: cisco
+        password: cisco
