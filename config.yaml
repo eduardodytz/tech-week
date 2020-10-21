@@ -11,4 +11,4 @@ runner:
         num_workers: 10
 
 logging:
-    plugin: False
+    enabled: False
