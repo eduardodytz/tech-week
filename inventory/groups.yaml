@@ -1,6 +1,6 @@
 ---
     cisco:
         data:
-            domain: cisco.com
+            domain: virl.lab
         username: cisco
         password: cisco
