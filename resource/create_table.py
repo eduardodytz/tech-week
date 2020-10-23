@@ -1,5 +1,6 @@
 from prettytable import PrettyTable
 
+
 def make_table(table_name, data=False, print_table=False):
 
     global version, interface, ospf
