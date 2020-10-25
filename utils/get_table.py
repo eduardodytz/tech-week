@@ -48,7 +48,6 @@ def add_row_table(table_name, row):
         # Adding a row according to the data of the variable "row".
         version.add_row(row)
 
-
     if table_name == 'interface':
 
         interface.add_row(row)

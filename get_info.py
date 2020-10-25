@@ -24,9 +24,9 @@ from nornir.core.filter import F
 # 
 # The import command of the "bar" function would look like this:
 # from resource.foo import bar
-from resource.ios_xe import multitask_ios_xe
-from resource.nx_os import multitask_nx_os
-from resource.get_table import print_table
+from utils.ios_xe import multitask_ios_xe
+from utils.nx_os import multitask_nx_os
+from utils.get_table import print_table
 
 
 def exec_connection(nrf,features):
