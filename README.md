@@ -24,6 +24,19 @@ Is not supported by the windows platform.
 - Cisco Modeling Labs Enterprise: https://devnetsandbox.cisco.com/RM/Diagram/Index/45100600-b413-4471-b28e-b014eb824555?diagramType=Topology
 - Topology: https://devnetsandbox.cisco.com/sandbox-instructions/Cisco_Modeling_Ent/CML%20Sandbox%20Topology.pdf
 
+#### Enable SSH on NX-OS
+
+User: cisco
+Pass: cisco
+
+```
+bash$ telnet <ip-address-nx-os>
+dist-sw01# config t
+dist-sw01(config)# feature ssh
+dist-sw01(config)# end
+dist-sw01# copy running-config startup-config 
+```
+
 #### Clone this repo
 
 ```
