@@ -31,16 +31,23 @@ def create_table():
         ospf = PrettyTable()
         ospf.field_names = ["Device","OSPF Interface","Neighbor Router ID","Address","State"]
 
+
 # Function to add row by row to the table
 def add_row_table(table_name, row):
+    """Function to add rows to the tables.
+
+    Args:
+        table_name (str): Table name
+        row (list): list with data for each column
     """
-    table_name = Table name (str)
-    row = Row data (list)
-    """
+
+    # Calling the function that manages the creation of the tables.
     create_table()
 
+    # Based on the table name, the data will be added
     if table_name == 'version':
 
+        # Adding a row according to the data of the variable "row".
         version.add_row(row)
 
 
@@ -55,6 +62,12 @@ def add_row_table(table_name, row):
 
 
 def print_table(tables):
+    """Function to print the list(s)
 
+    Args:
+        tables (list): Table(s) name
+    """
+
+    # For each table in the list of tables, print the table.
     for table in tables:
         print(globals()[table])
