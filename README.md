@@ -10,8 +10,7 @@ This is the Git repo containing the scripts used in Tech Week - 5.1. Programabil
 
 ## Requirements
 
-- Linux
-- macOS
+- Linux/macOS
 - Python 3
 
 Is not supported by the windows platform.
