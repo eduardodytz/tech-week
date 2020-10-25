@@ -12,10 +12,17 @@ This is the Git repo containing the scripts used in Tech Week - 5.1. Programabil
 
 - Linux
 - MacOS
+- Python 3
 
 Is not supported by the windows platform.
 
 
-## How to
+## Instalation
+
+#### Clone this repo
+
+```
+$ git clone https://gitlab.com/eduardo.dytz/tech-week
+```
 
 #### Clone this repo
