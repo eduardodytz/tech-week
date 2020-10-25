@@ -115,18 +115,31 @@ def parsing_ios_xe_interface(output):
 
 
 def parsing_ios_xe_ospf(output):
+    """Function to extract the data of AggregatedResult from the "show ip ospf neighbor" command.
 
+    Args:
+        output (AggregatedResult): Task output
+    """
+
+    # For each device in output task 
     for device in output.keys():
 
+        # Associating the dictionary to a variable for better manipulation of it.
         ospf_interfaces = output[device][0].result['interfaces']
 
+        # For each neighbor OSPF
         for ospf_neighbor in ospf_interfaces.keys():
 
+            # Associating router id
             router_id = ospf_interfaces[ospf_neighbor]['neighbors']
 
+            # For each neighbor OSPF in router_id
             for each_neighbor in router_id.keys():
+
+                # Associating the variables to each item that we want to be displayed in the table.
                 neighbor_router_id = each_neighbor
                 address = router_id[each_neighbor]['address']
                 state = router_id[each_neighbor]['state']
-                
+
+                # Calling the function to add the items to the table columns.
                 add_row_table(table_name="ospf",row=[device, ospf_neighbor, neighbor_router_id, address, state])
