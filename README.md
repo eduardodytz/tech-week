@@ -15,7 +15,6 @@ This is the Git repo containing the scripts used in Tech Week - 5.1. Programabil
 
 Is not supported by the windows platform.
 
-
 ## Getting Started
 
 #### SandBox DevNet used in this laboratory.
