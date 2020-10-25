@@ -1,3 +1,8 @@
+"""
+Module to perform tasks and parsing the data.
+
+Author: Eduardo Dytz
+"""
 from nornir_netmiko import netmiko_send_command
 from resource.get_table import add_row_table
 
