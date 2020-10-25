@@ -1,29 +1,37 @@
 from nornir_netmiko import netmiko_send_command
-from resource.create_table import make_table
+from resource.get_table import add_row_table
 
 
-def multitask_nx_os(task):
+def multitask_nx_os(task,features):
     
-    task.run(
-            task=netmiko_send_command,
-            name='version',
-            command_string="show version", 
-            use_genie=True
-            )
+    for feature in features:
 
-    task.run(
-            task=netmiko_send_command,
-            name='interface',
-            command_string="show interface", 
-            use_genie=True
-            )
+        if feature == 'version':
+            output_version = task.run(
+                            task=netmiko_send_command,
+                            name='version',
+                            command_string="show version", 
+                            use_genie=True
+                            )
+            parsing_nx_os_version(output_version)
 
-    task.run(
-            task=netmiko_send_command,
-            name='ospf',
-            command_string="show ip ospf neighbors detail", 
-            use_genie=True
-            )
+        if feature == 'interface':
+            output_interface = task.run(
+                            task=netmiko_send_command,
+                            name='interface',
+                            command_string="show ip interface brief", 
+                            use_genie=True
+                            )
+            parsing_nx_os_interface(output_interface)
+
+        if feature == 'ospf':
+            output_ospf = task.run(
+                            task=netmiko_send_command,
+                            name='ospf',
+                            command_string="show ip ospf neighbors detail", 
+                            use_genie=True
+                            )
+            parsing_nx_os_ospf(output_ospf)
 
 
 def parsing_uptime(clock):
@@ -38,63 +46,60 @@ def parsing_uptime(clock):
     return clock_parse
 
 
-def nx_os(nrf):
-
-    output = nrf.run(task=multitask_nx_os)
+def parsing_nx_os_version(output):
 
     for device in output.keys():
-        
-        hostname = output[device][1].host.name
 
-        show_version_command_output = output[device][1].result['platform']
+        show_version_command_output = output[device][0].result['platform']
         operating_system = show_version_command_output['os']
         software_version = show_version_command_output['software']['system_version']
         uptime = parsing_uptime(show_version_command_output['kernel_uptime'])
         image = show_version_command_output['software']['system_image_file']
         device_family = show_version_command_output['hardware']['model']
-        config_register = "N/A"
+        reason = show_version_command_output['reason']
         
-        make_table(table_name="version",data=[hostname, operating_system, software_version, uptime, image, device_family, config_register])
+        add_row_table(table_name="version",row=[device, operating_system, software_version, uptime, image, device_family, reason])
 
-        list_interface = output[device][2].result
-        
-        interface_bypass = ['Loopback0']
+
+def parsing_nx_os_interface(output):
+
+    for device in output.keys():
+
+        list_interface = output[device][0].result['interface']
+
+        interface_bypass = ['loopback0','mgmt0','Vlan1']
+
         for interface in list_interface:
-            interface_data = list_interface[interface]
+            
             if interface not in interface_bypass:
+                if 'Vlan' in interface:
+                    vlan_number = interface.split('Vlan')[1]
+                    ip_address = list_interface[interface]['vlan_id'][vlan_number]['ip_address']
+                    interface_status = list_interface[interface]['vlan_id'][vlan_number]['interface_status']
 
-                interface_name = interface
-
-                if 'ipv4' in interface_data:
-                    ip_address = [key for key in interface_data['ipv4'].keys()][0]
                 else:
-                    ip_address = "no ip address"
+                    ip_address = list_interface[interface]['ip_address']
+                    interface_status = list_interface[interface]['interface_status']
 
-                line_protocol = interface_data['admin_state']
-                oper_status = interface_data['oper_status']
-                description = interface_data['description']
-                mtu = interface_data['mtu']
+                line_protocol = interface_status.split('/')[0].split('-')[1]
+                oper_status = interface_status.split('/')[1].split('-')[1]
 
-                if interface_data['admin_state'] == 'up':
-                    port_speed = interface_data['port_speed']
-                else:
-                    port_speed = "N/A"
-
-                in_octets = interface_data['counters']['rate']['in_rate']
-                out_octets = interface_data['counters']['rate']['out_rate']
-                
-                make_table(table_name="interface",data=[hostname, interface_name, ip_address, line_protocol, oper_status, description, mtu, port_speed, in_octets, out_octets])
+                add_row_table(table_name="interface",row=[device, interface, ip_address, line_protocol, oper_status])
 
 
-        ospf_interfaces = output[device][3].result['vrf']['default']['address_family']['ipv4']['instance']['1']['areas']['0.0.0.0']['interfaces']
-        
+def parsing_nx_os_ospf(output):
+
+    for device in output.keys():
+    
+        ospf_interfaces = output[device][0].result['vrf']['default']['address_family']['ipv4']['instance']['1']['areas']['0.0.0.0']['interfaces']
+            
         for ospf_neighbor in ospf_interfaces.keys():
 
-                router_id = ospf_interfaces[ospf_neighbor]['neighbors']
+            router_id = ospf_interfaces[ospf_neighbor]['neighbors']
 
-                for each_neighbor in router_id.keys():
-                    neighbor_router_id = router_id[each_neighbor]['neighbor_router_id']
-                    address = router_id[each_neighbor]['address']
-                    state = router_id[each_neighbor]['state']
+            for each_neighbor in router_id.keys():
+                neighbor_router_id = router_id[each_neighbor]['neighbor_router_id']
+                address = router_id[each_neighbor]['address']
+                state = router_id[each_neighbor]['state']
 
-                    make_table(table_name="ospf",data=[hostname, ospf_neighbor, neighbor_router_id, address, state])
+                add_row_table(table_name="ospf",row=[device, ospf_neighbor, neighbor_router_id, address, state])

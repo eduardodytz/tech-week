@@ -9,7 +9,7 @@ inventory:
 runner:
     plugin: threaded
     options:
-        num_workers: 10
+        num_workers: 1
 
 logging:
     enabled: False
