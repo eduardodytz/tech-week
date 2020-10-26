@@ -1,6 +1,6 @@
 # Tech Week - 5.1. Programability
 
-This is the Git repo containing the scripts used in Tech Week - 5.1. Programability.
+This is the Git repo containing the scripts used in Tech Week - 5.1. Programability
 
 ## General Information
 
