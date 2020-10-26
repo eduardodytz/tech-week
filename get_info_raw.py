@@ -1,7 +1,7 @@
 ################################################################################################################################
 #
 #
-# Main script, through it the tasks will be executed.
+# Script with outputs without any processing.
 # To manage the connections, the Nornir framework will be used. I choose it because of its high scalability.
 # 
 # Nornir documentation: https://nornir.readthedocs.io/en/3.0.0/index.html
