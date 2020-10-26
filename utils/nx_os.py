@@ -191,7 +191,7 @@ def generate_nxos_config_file(vlans):
         vlans (list): List with vlan dict
     """
 
-    # If you have configuration files in the folder, they will be deleted.
+    # If there are configuration files in the folder, they will be deleted.
     config_files = glob.glob("templates/*.ios")
     for config_file in config_files:
         os.remove(config_file)
