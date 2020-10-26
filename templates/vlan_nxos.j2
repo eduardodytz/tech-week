@@ -1,0 +1,10 @@
+
+interface Vlan{{ vlan_id }}
+ description {{ description }} svi
+ no shutdown
+ no ip redirects
+ ip address {{ ip }}/{{ mask }}
+ no ipv6 redirects
+ ip router ospf 1 area 0.0.0.0
+ hsrp 10 
+  ip {{ hsrp }}

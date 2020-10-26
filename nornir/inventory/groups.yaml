@@ -1,6 +1,4 @@
 ---
-    cisco:
-        data:
-            domain: virl.lab
-        username: cisco
-        password: cisco
+devnet:
+    username: cisco
+    password: cisco

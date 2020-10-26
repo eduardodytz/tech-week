@@ -4,37 +4,37 @@ dist-rtr01:
     port: 22
     platform: cisco_xe
     groups:
-        - cisco
+        - devnet
     data:
         role: dist
-        type: network_device
+        type: router
 
 dist-rtr02:
     hostname: 10.10.20.176
     port: 22
     platform: cisco_xe
     groups:
-        - cisco
+        - devnet
     data:
         role: dist
-        type: network_device
+        type: router
 
 dist-sw01:
     hostname: 10.10.20.177
     port: 22
     platform: cisco_nxos
     groups:
-        - cisco
+        - devnet
     data:
         role: dist
-        type: network_device
+        type: switch
 
 dist-sw02:
     hostname: 10.10.20.178
     port: 22
     platform: cisco_nxos
     groups:
-        - cisco
+        - devnet
     data:
         role: dist
-        type: network_device
+        type: switch

@@ -1,7 +1,5 @@
 """
 Module to perform tasks and data parsing for the NX-OS platform.
-
-Author: Eduardo Dytz
 """
 
 # Importing the "netmiko_send_commad" function
@@ -9,9 +7,14 @@ Author: Eduardo Dytz
 # I am using the "send_command" function of netmiko because it's already well spread and with big documentation. 
 # Nornir can also use other connection libraries such as NAPALM, Paramiko and NETCONF.
 from nornir_netmiko import netmiko_send_command
+from nornir_netmiko import netmiko_send_config
 
 # Importing the function to add rows to the tables.
 from utils.get_table import add_row_table
+
+# Importing the functions by jinja2
+from jinja2 import Environment, FileSystemLoader
+import os, glob
 
 
 def multitask_nx_os(task,features):
@@ -179,3 +182,40 @@ def parsing_nx_os_ospf(output):
 
                 # Calling the function to add the items to the table columns.
                 add_row_table(table_name="ospf",row=[device, ospf_neighbor, neighbor_router_id, address, state])
+
+def generate_nxos_config_file(vlans):
+    
+    config_files = glob.glob("templates/*.ios")
+    for config_file in config_files:
+        os.remove(config_file)
+
+    file_loader = FileSystemLoader('templates')
+    env = Environment(loader=file_loader)
+    template = env.get_template('vlan_nxos.j2')
+    for host in vlans:
+
+        device = host['device']
+        vlan_id = host['vlan_id']
+        description = host['description']
+        ip = host['ip']
+        mask = host['mask']
+        hsrp = host['hsrp']
+
+        output_config = template.render(
+            vlan_id=vlan_id,
+            description=description,
+            ip=ip,
+            mask=mask,
+            hsrp=hsrp
+        )
+        file = open("templates/{}.ios".format(device),"w")
+        file.write(str(output_config))
+        file.close()
+
+
+def multitask_config(task):
+
+    task.run(
+        task=netmiko_send_config,
+        config_file="templates/{}.ios".format(task.host.name)
+    )

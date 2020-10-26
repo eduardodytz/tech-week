@@ -1,8 +1,6 @@
 """
 Module for creating, adding rows and printing tables
 In this example, tables will be created according to the features defined previously.
-
-Author: Eduardo Dytz
 """
 
 # Importing the PrettyTable function from the prettytable library

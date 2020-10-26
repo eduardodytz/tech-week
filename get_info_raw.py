@@ -22,8 +22,32 @@ from nornir.core.filter import F
 # Starting the nornir and passing which configuration file it should use.
 nr = InitNornir(config_file="nornir/config.yaml")
 
+
+##############################################
+# hosts.yaml configuration example:
+#
+#   dist-rtr01:
+#    hostname: 10.10.20.175
+#    port: 22
+#    platform: cisco_xe
+#    groups:
+#        - cisco
+#    data:
+#        role: dist
+#        type: router
+#
+#   dist-sw01:
+#    hostname: 10.10.20.177
+#    port: 22
+#    platform: cisco_nxos
+#    groups:
+#        - cisco
+#    data:
+#        role: dist
+#        type: switch
+
 # Filter host
-nrf = nr.filter(F(role="dist"))
+nrf = nr.filter(F(name="dist-rtr01") | F(name="dist-sw01"))
 
 # Executing commands "show"
 output = nrf.run(task=netmiko_send_command, command_string="show ip interface brief")

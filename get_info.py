@@ -80,7 +80,13 @@ if __name__ == "__main__":
     #
     #   Filter by role:
     #       nrf = nr.filter(F(role="dist"))
-    nrf = nr.filter(F(role="dist"))
+    #
+    #   Filter by group:
+    #       nrf = nr.filter(F(groups__contains="devnet"))
+    #
+    #   Filter by type:
+    #       nrf = nr.filter(F(type="router"))
+    nrf = nr.filter(F(type="switch"))
 
     # List with the features we wish to obtain information. These features are already defined in the files of each platform, in the resource folder.
     # In this script are already written parser for the commands:
@@ -101,7 +107,7 @@ if __name__ == "__main__":
     #   - access via ssh
     #
     #
-    # The characters can be used all together and/or separately.
+    # The characters can be used all together or separately.
     #
     # For example:
     #   features = ['version','interface','ospf']
@@ -109,7 +115,7 @@ if __name__ == "__main__":
     #   features = ['version','interface']
     #   or
     #   features = ['ospf']
-    features = ['version','interface','ospf']
+    features = ['interface']
 
     # Calling the connection function to the devices, passing the hosts according to the filter previously done and also passing the list of features.
     exec_connection(nrf,features=features)

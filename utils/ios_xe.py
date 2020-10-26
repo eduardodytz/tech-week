@@ -1,7 +1,5 @@
 """
 Module to perform tasks and data parsing for the IOS-XE platform.
-
-Author: Eduardo Dytz
 """
 
 # Importing the "netmiko_send_commad" function
