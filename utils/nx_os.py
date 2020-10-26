@@ -183,8 +183,15 @@ def parsing_nx_os_ospf(output):
                 # Calling the function to add the items to the table columns.
                 add_row_table(table_name="ospf",row=[device, ospf_neighbor, neighbor_router_id, address, state])
 
+
 def generate_nxos_config_file(vlans):
-    
+    """Function to generate the configuration files for each device.
+
+    Args:
+        vlans (list): List with vlan dict
+    """
+
+    # If you have configuration files in the folder, they will be deleted.
     config_files = glob.glob("templates/*.ios")
     for config_file in config_files:
         os.remove(config_file)
@@ -208,6 +215,7 @@ def generate_nxos_config_file(vlans):
             mask=mask,
             hsrp=hsrp
         )
+
         file = open("templates/{}.ios".format(device),"w")
         file.write(str(output_config))
         file.close()

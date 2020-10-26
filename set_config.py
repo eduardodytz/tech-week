@@ -36,7 +36,9 @@ vlans = [
     }
 ]
 
+# Filter host
 nrf = nr.filter(F(type="switch"))
+
 
 generate_nxos_config_file(vlans)
 
