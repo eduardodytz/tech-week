@@ -39,7 +39,7 @@ dist-sw01# copy running-config startup-config
 #### Clone this repo
 
 ```
-bash$ git clone https://gitlab.com/eduardo.dytz/tech-week
+bash$ git clone https://github.com/eduardodytz/tech-week
 bash$ cd tech-week
 bash$ pip install -r requirements.txt
 ```
