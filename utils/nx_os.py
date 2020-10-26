@@ -8,6 +8,7 @@ Module to perform tasks and data parsing for the NX-OS platform.
 # Nornir can also use other connection libraries such as NAPALM, Paramiko and NETCONF.
 from nornir_netmiko import netmiko_send_command
 from nornir_netmiko import netmiko_send_config
+from nornir_netmiko import netmiko_save_config
 
 # Importing the function to add rows to the tables.
 from utils.get_table import add_row_table
@@ -196,11 +197,19 @@ def generate_nxos_config_file(vlans):
     for config_file in config_files:
         os.remove(config_file)
 
+    # Associating the path of template files
     file_loader = FileSystemLoader('templates')
+
+    # Associating the path with the environment
     env = Environment(loader=file_loader)
+
+    # Informing which template will be used.
     template = env.get_template('vlan_nxos.j2')
+
+    # For each device the list of vlans
     for host in vlans:
 
+        # Associating the values of the keys in variables.
         device = host['device']
         vlan_id = host['vlan_id']
         description = host['description']
@@ -208,6 +217,7 @@ def generate_nxos_config_file(vlans):
         mask = host['mask']
         hsrp = host['hsrp']
 
+        # Rendering the configuration file with the variables
         output_config = template.render(
             vlan_id=vlan_id,
             description=description,
@@ -216,14 +226,29 @@ def generate_nxos_config_file(vlans):
             hsrp=hsrp
         )
 
+        # Saving in a "device.ios" file the rendered template in the templates folder
         file = open("templates/{}.ios".format(device),"w")
         file.write(str(output_config))
         file.close()
 
 
 def multitask_config(task):
+    """Function to connect to the device, configure and save the configuration.
 
+    Args:
+        task (Nornir): Nornir task
+    """
+
+    # Task to configure the device
     task.run(
         task=netmiko_send_config,
         config_file="templates/{}.ios".format(task.host.name)
     )
+
+    # task to save the configuration
+    task.run(
+        task=netmiko_save_config,
+        cmd="copy running-config startup-config",
+        confirm=True
+    )
+
