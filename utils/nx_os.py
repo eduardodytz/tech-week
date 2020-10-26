@@ -1,7 +1,6 @@
 """
 Module to perform tasks and data parsing for the NX-OS platform.
 """
-
 # Importing the "netmiko_send_commad" function
 # 
 # I am using the "send_command" function of netmiko because it's already well spread and with big documentation. 
@@ -15,7 +14,10 @@ from utils.get_table import add_row_table
 
 # Importing the functions by jinja2
 from jinja2 import Environment, FileSystemLoader
-import os, glob
+
+# Import others libraries
+import os
+import glo
 
 
 def multitask_nx_os(task,features):
