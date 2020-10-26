@@ -15,25 +15,24 @@ from nornir.core.filter import F
 from utils.nx_os import generate_nxos_config_file, multitask_config
 
 # # Starting the nornir and passing which configuration file it should use.
-nr = InitNornir(config_file="nornir/config.yaml", dry_run=True)
-
+nr = InitNornir(config_file="nornir/config.yaml")
 
 vlans = [
     {
         "device": "dist-sw01",
-        "vlan_id": 107,
-        "description": "atm",
-        "ip": "172.16.107.2",
+        "vlan_id": 108,
+        "description": "teste",
+        "ip": "172.16.108.2",
         "mask": 24,
-        "hsrp": "172.16.107.1"
+        "hsrp": "172.16.108.1"
     },
         {
         "device": "dist-sw02",
-        "vlan_id": 107,
-        "description": "atm",
-        "ip": "172.16.107.3",
+        "vlan_id": 108,
+        "description": "teste",
+        "ip": "172.16.108.3",
         "mask": 24,
-        "hsrp": "172.16.107.1"
+        "hsrp": "172.16.108.1"
     }
 ]
 

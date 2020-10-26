@@ -18,7 +18,7 @@ Is not supported by the windows platform.
 
 ## Getting Started
 
-#### SandBox DevNet used in this laboratory.
+#### SandBox DevNet used in this laboratory
 
 - Cisco Modeling Labs Enterprise: https://devnetsandbox.cisco.com/RM/Diagram/Index/45100600-b413-4471-b28e-b014eb824555?diagramType=Topology
 - Topology: https://devnetsandbox.cisco.com/sandbox-instructions/Cisco_Modeling_Ent/CML%20Sandbox%20Topology.pdf
