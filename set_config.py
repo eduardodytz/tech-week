@@ -17,6 +17,7 @@ from utils.nx_os import generate_nxos_config_file, multitask_config
 # # Starting the nornir and passing which configuration file it should use.
 nr = InitNornir(config_file="nornir/config.yaml")
 
+# List of vlan dictionary by device
 vlans = [
     {
         "device": "dist-sw01",
@@ -39,9 +40,11 @@ vlans = [
 # Filter host
 nrf = nr.filter(F(type="switch"))
 
-
+# Function to generate the configuration files for each device.
 generate_nxos_config_file(vlans)
 
+# Associating the output of the function that will configure and save the changes in the device.
 result = nrf.run(task=multitask_config)
 
+# Print the result
 print_result(result)
