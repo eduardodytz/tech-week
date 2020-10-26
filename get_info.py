@@ -78,9 +78,9 @@ if __name__ == "__main__":
     #       or devices:
     #       nrf = nr.filter(F(name="dist-rtr01") | F(name="dist-rtr02"))
     #
-    #   Filter by group:
-    #       nrf = nr.filter(F(groups="cisco"))
-    nrf = nr.filter(F(groups="cisco"))
+    #   Filter by role:
+    #       nrf = nr.filter(F(role="dist"))
+    nrf = nr.filter(F(role="dist"))
 
     # List with the features we wish to obtain information. These features are already defined in the files of each platform, in the resource folder.
     # In this script are already written parser for the commands:
