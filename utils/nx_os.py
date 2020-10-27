@@ -17,7 +17,7 @@ from jinja2 import Environment, FileSystemLoader
 
 # Import others libraries
 import os
-import glo
+import glob
 
 
 def multitask_nx_os(task,features):
