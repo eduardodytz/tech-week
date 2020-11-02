@@ -47,13 +47,13 @@ nr = InitNornir(config_file="nornir/config.yaml")
 #        type: switch
 
 # Filter host
-nrf = nr.filter(F(name="dist-sw01"))
+nrf = nr.filter(F(name="dist-rtr01"))
 
 # Executing commands "show"
-#output = nrf.run(task=netmiko_send_command, command_string="show ip interface brief")
+output = nrf.run(task=netmiko_send_command, command_string="show ip interface brief")
 
 # Executing commands "show" with JSON parsing
-output = nrf.run(task=netmiko_send_command, command_string="show ip interface brief", use_genie=True)
+#output = nrf.run(task=netmiko_send_command, command_string="show ip interface brief", use_genie=True)
 
 # Print results
 print_result(output)

@@ -21,19 +21,19 @@ nr = InitNornir(config_file="nornir/config.yaml")
 vlans = [
     {
         "device": "dist-sw01",
-        "vlan_id": 108,
-        "description": "teste",
-        "ip": "172.16.108.2",
+        "vlan_id": 110,
+        "description": "Vlan110",
+        "ip": "172.16.110.2",
         "mask": 24,
-        "hsrp": "172.16.108.1"
+        "hsrp": "172.16.110.1"
     },
         {
         "device": "dist-sw02",
-        "vlan_id": 108,
-        "description": "teste",
-        "ip": "172.16.108.3",
+        "vlan_id": 110,
+        "description": "Vlan110",
+        "ip": "172.16.110.3",
         "mask": 24,
-        "hsrp": "172.16.108.1"
+        "hsrp": "172.16.110.1"
     }
 ]
 

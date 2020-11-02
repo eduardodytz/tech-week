@@ -38,3 +38,4 @@ dist-sw02:
     data:
         role: dist
         type: switch
+        prod: False

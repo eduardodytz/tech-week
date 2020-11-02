@@ -115,7 +115,7 @@ if __name__ == "__main__":
     #   features = ['version','interface']
     #   or
     #   features = ['ospf']
-    features = ['version','interface']
+    features = ['interface']
 
     # Calling the connection function to the devices, passing the hosts according to the filter previously done and also passing the list of features.
     exec_connection(nrf,features=features)
